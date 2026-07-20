@@ -1,0 +1,15 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node (this project has no runtime deps, but ignore if ever added)
+node_modules/
+npm-debug.log*
+yarn-error.log
+*.log
+
+# Local, machine-specific Claude Code settings (permission grants etc.)
+.claude/settings.local.json

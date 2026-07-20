@@ -1,0 +1,10 @@
+{
+  "name": "daily-workout-randomizer",
+  "version": "1.0.0",
+  "description": "A dependency-free single-page app that picks a random daily workout per group.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}
