@@ -11,7 +11,8 @@
 
 set -euo pipefail
 
-: "${BUCKET:?Set BUCKET to your S3 bucket name, e.g. BUCKET=my-workout-bucket}"
+# Canonical content bucket is the custom-domain bucket; override BUCKET to target another.
+BUCKET="${BUCKET:-undo-pal.rkocherl.net}"
 REGION="${REGION:-us-east-1}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -31,7 +32,19 @@ aws s3 sync . "s3://${BUCKET}" \
   --include "index.html" \
   --include "styles.css" \
   --include "src/*" \
+  --include "favicon.svg" \
+  --include "*.png" \
+  --include "site.webmanifest" \
   --delete
+
+# aws s3 sync doesn't know the .webmanifest extension; set its content type explicitly
+# so browsers accept the manifest.
+aws s3 cp "s3://${BUCKET}/site.webmanifest" "s3://${BUCKET}/site.webmanifest" \
+  --content-type "application/manifest+json" \
+  --metadata-directive REPLACE >/dev/null
 
 echo ""
 echo "Deployed to: http://${BUCKET}.s3-website-${REGION}.amazonaws.com"
+if [[ "${BUCKET}" == "undo-pal.rkocherl.net" ]]; then
+  echo "Custom domain: http://undo-pal.rkocherl.net"
+fi

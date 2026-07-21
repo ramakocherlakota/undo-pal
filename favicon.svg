@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Weightlifter pressing a barbell overhead">
+  <rect width="512" height="512" rx="112" fill="#4f46e5"/>
+  <g fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <!-- barbell weight plates -->
+    <rect x="96" y="98" width="30" height="84" rx="12" stroke="none"/>
+    <rect x="386" y="98" width="30" height="84" rx="12" stroke="none"/>
+    <!-- bar -->
+    <line x1="118" y1="140" x2="394" y2="140" stroke-width="20"/>
+    <!-- head -->
+    <circle cx="256" cy="198" r="34" stroke="none"/>
+    <!-- arms raised to the bar -->
+    <path d="M212 142 L226 240" fill="none" stroke-width="22"/>
+    <path d="M300 142 L286 240" fill="none" stroke-width="22"/>
+    <!-- torso -->
+    <path d="M256 236 L256 330" fill="none" stroke-width="34"/>
+    <!-- legs in a stance -->
+    <path d="M256 322 L212 452" fill="none" stroke-width="30"/>
+    <path d="M256 322 L300 452" fill="none" stroke-width="30"/>
+  </g>
+</svg>

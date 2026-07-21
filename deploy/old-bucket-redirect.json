@@ -1,0 +1,6 @@
+{
+  "RedirectAllRequestsTo": {
+    "HostName": "undo-pal.rkocherl.net",
+    "Protocol": "http"
+  }
+}

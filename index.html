@@ -6,21 +6,20 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#4f46e5" />
     <meta
       name="description"
       content="Pick a random daily workout for each muscle group."
     />
     <title>Today's Workout</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
-      <header class="app-header">
-        <h1>Today's Workout</h1>
-        <p class="subtitle">One pick per group. Re-roll any you don't fancy.</p>
-      </header>
-
       <main id="app" class="cards"><!-- cards injected by src/app.js --></main>
 
       <div class="actions">
@@ -28,10 +27,6 @@
           <span aria-hidden="true">🎲</span> Randomize all
         </button>
       </div>
-
-      <footer class="app-footer">
-        <p>Your picks are saved on this device.</p>
-      </footer>
     </div>
 
     <script type="module" src="src/app.js"></script>
