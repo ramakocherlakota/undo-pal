@@ -131,6 +131,29 @@ body {
   font-style: italic;
 }
 
+/* Exercise name rendered as a video-search link. Keeps the .exercise type
+   scale (size/weight/word-break are inherited from the <p>) and adds link
+   affordances that read in both light and dark themes via --accent. */
+.exercise-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 4px;
+  -webkit-tap-highlight-color: transparent;
+  transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
+
+.exercise-link:hover {
+  text-decoration-color: var(--accent);
+}
+
+.exercise-link:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 /* --- Buttons --- */
 .btn {
   font: inherit;
