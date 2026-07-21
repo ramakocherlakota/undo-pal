@@ -79,7 +79,7 @@ Repo root holds the site (`index.html`, icon assets, `site.webmanifest`); `deplo
 **Purpose**: Get the icon onto the live site and validate on real devices
 
 - [X] T016 Redeploy to `s3://undo-pal.rkocherl.net` via `deploy/deploy.sh` so the live site includes the icon assets + manifest with correct content types; re-run quickstart Part B curls (favicon.svg → image/svg+xml, site.webmanifest → application/manifest+json). (Depends on US1 deployed + US2 assets: T009, T013, T014.)
-- [ ] T017 Real-device checks (quickstart Part C): open `http://undo-pal.rkocherl.net` on a phone (app works), iOS "Add to Home Screen" shows the apple-touch icon, Android install uses the manifest icons (FR-008).
+- [X] T017 Real-device checks (quickstart Part C): open `http://undo-pal.rkocherl.net` on a phone (app works), iOS "Add to Home Screen" shows the apple-touch icon, Android install uses the manifest icons (FR-008).
 - [X] T018 [P] Update `README.md`: document the friendly URL `http://undo-pal.rkocherl.net`, that the canonical deploy bucket is now `undo-pal.rkocherl.net` (old bucket redirects), and note the icon assets + `make-icons.sh`.
 
 ---
