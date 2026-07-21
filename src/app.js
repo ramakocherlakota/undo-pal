@@ -5,6 +5,7 @@ import { CATEGORIES } from "./data.js";
 import { selectAll, reselectOne } from "./selection.js";
 import { reconcile } from "./reconcile.js";
 import { loadState, saveState } from "./storage.js";
+import { videoSearchUrl } from "./videoSearch.js";
 
 const appEl = document.getElementById("app");
 
@@ -69,12 +70,23 @@ function renderCard(cat) {
 }
 
 function applyExerciseText(el, value) {
+  // Clear any prior text/anchor first so re-renders (re-roll, randomize-all)
+  // fully replace the previous content — no stale or duplicated links.
+  el.textContent = "";
   if (value == null) {
     el.classList.add("exercise-empty");
     el.textContent = "No exercises available";
   } else {
     el.classList.remove("exercise-empty");
-    el.textContent = value;
+    // Real exercise -> a video-search link that opens in a new tab, hardened
+    // with rel="noopener noreferrer" so following it can't touch the app tab.
+    const link = document.createElement("a");
+    link.className = "exercise-link";
+    link.textContent = value;
+    link.setAttribute("href", videoSearchUrl(value));
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
+    el.appendChild(link);
   }
 }
 
