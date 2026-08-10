@@ -58,11 +58,21 @@ Node.js >= 18.
 
 ## Regenerate the icons
 
-The PNG icons are rasterized from `favicon.svg` (requires ImageMagick):
+`favicon.svg` is the master: the 🏋️ weightlifter from
+[Twemoji](https://github.com/jdecked/twemoji) (`1f3cb.svg`), graphics by Twitter,
+Inc and other contributors, licensed
+[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+The PNGs are rasterized from it with headless Chrome (requires Google Chrome and
+ImageMagick):
 
 ```bash
 bash deploy/make-icons.sh
 ```
+
+The tab favicon stays transparent and full bleed; the home-screen icons are
+flattened onto the `#4f46e5` tile, since iOS and Android composite them over
+black or over wallpaper.
 
 ## Deploy to AWS S3
 
