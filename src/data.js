@@ -11,6 +11,7 @@ export const CATEGORIES = [
       "1/2 kneeling chop/rotation",
       "90/90 overhead dumbbell pullover",
       "Alt row",
+      "Alt shoulder press",
       "Alternating snatch",
       "Arm reach to ceiling from back",
       "Arnold Press",
@@ -100,6 +101,7 @@ export const CATEGORIES = [
     id: "core",
     name: "Core",
     exercises: [
+      "Ab hovers",
       "Alternating leg lift",
       "Ball slam overhead",
       "Band external rotation both shoulders elbow at 90deg",
