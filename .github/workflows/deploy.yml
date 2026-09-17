@@ -49,11 +49,33 @@ jobs:
           fi
 
       - name: Configure AWS credentials (OIDC)
+        id: aws-creds
         uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           role-session-name: undo-pal-deploy-${{ github.run_id }}
           aws-region: ${{ env.REGION }}
+
+      # "Not authorized to perform sts:AssumeRoleWithWebIdentity" means the role's
+      # trust policy doesn't match this token. Print the claims it must match
+      # (never the token itself) so the policy can be fixed without guessing.
+      - name: Show OIDC claims (only if assuming the role failed)
+        if: failure() && steps.aws-creds.outcome == 'failure'
+        run: |
+          token=$(curl -sS \
+            -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin)["value"])')
+          ID_TOKEN="$token" python3 <<'PY'
+          import base64, json, os
+          payload = os.environ["ID_TOKEN"].split(".")[1]
+          payload += "=" * (-len(payload) % 4)
+          claims = json.loads(base64.urlsafe_b64decode(payload))
+          print("The IAM role trust policy must match these claims:")
+          for k in ("sub", "aud", "repository", "ref", "environment"):
+              if k in claims:
+                  print(f"  {k}: {claims[k]}")
+          PY
 
       - name: Deploy to S3
         run: deploy/deploy.sh

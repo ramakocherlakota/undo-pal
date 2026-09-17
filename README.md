@@ -96,6 +96,14 @@ DNS and redirect setup are one-time; see
 GitHub's OIDC provider — no long-lived access keys — and runs the same
 `deploy/deploy.sh` script.
 
+The deploy job runs in the `production` GitHub environment. **That choice
+determines the OIDC subject claim:** a job that references an environment gets
+`sub = repo:OWNER/REPO:environment:production`, *not* the branch-based
+`...:ref:refs/heads/main`. The trust policy in
+`deploy/github-oidc-trust-policy.json` matches the environment form. If you ever
+remove the `environment:` block from the workflow, the trust policy has to change
+to the `ref:refs/heads/main` form to match.
+
 One-time AWS + GitHub setup:
 
 1. **Add GitHub as an OIDC identity provider** in the AWS account (once per
@@ -107,8 +115,9 @@ One-time AWS + GitHub setup:
      --client-id-list sts.amazonaws.com
    ```
 
-2. **Create the deploy role** trusting only this repo's `main` branch. Fill in
-   your account ID, then create the role and attach the S3 policy:
+2. **Create the deploy role** trusting only this repo's `production`
+   environment. Fill in your account ID, then create the role and attach the S3
+   policy:
 
    ```bash
    ACCOUNT_ID=123456789012
@@ -123,9 +132,32 @@ One-time AWS + GitHub setup:
      --policy-name undo-pal-s3-deploy --policy-document file:///tmp/deploy-policy.json
    ```
 
-3. **Add the role ARN as a repository secret** named `AWS_ROLE_ARN`
-   (Settings → Secrets and variables → Actions), e.g.
-   `arn:aws:iam::123456789012:role/undo-pal-gha-deploy`.
+   To repair the trust policy on a role that already exists, use the same
+   `/tmp/trust.json` with:
 
-The workflow targets the `production` GitHub environment, so you can also add a
-required reviewer there if you ever want deploys gated on approval.
+   ```bash
+   aws iam update-assume-role-policy --role-name undo-pal-gha-deploy \
+     --policy-document file:///tmp/trust.json
+   ```
+
+3. **Add the role ARN as a repository secret** named `AWS_ROLE_ARN`
+   (Settings → Secrets and variables → Actions). It must be the **full ARN**,
+   not the role name — `arn:aws:iam::123456789012:role/undo-pal-gha-deploy`.
+   A bare role name fails with *"Source Account ID is needed if the Role Name is
+   provided and not the Role Arn."*
+
+You can also add a required reviewer to the `production` environment if you ever
+want deploys gated on approval.
+
+### Troubleshooting OIDC
+
+*"Could not assume role with OIDC: Not authorized to perform
+sts:AssumeRoleWithWebIdentity"* means the role's trust policy doesn't match the
+token's claims. The workflow has a step that runs only on that failure and
+prints the actual `sub`/`aud`/`repository`/`ref`/`environment` claims (never the
+token) — copy the printed `sub` into the trust policy's `StringLike` condition.
+
+Repositories created after 2026-07-15 may emit an immutable subject claim that
+embeds numeric org and repo IDs
+(`repo:owner@<ORG_ID>/repo@<REPO_ID>:environment:production`). The shipped trust
+policy lists patterns for both the plain and immutable forms, so either matches.
