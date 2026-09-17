@@ -26,6 +26,7 @@ src/
   app.js              # UI wiring
 tests/                # node --test unit tests for the pure logic
 deploy/               # S3 deploy + DNS/redirect config + icon build script
+.github/workflows/    # CI: deploy to S3 on push to main
 specs/                # spec / plan / tasks / contracts (Spec Kit)
 ```
 
@@ -87,3 +88,44 @@ deploy/deploy.sh          # defaults to the undo-pal.rkocherl.net bucket
 DNS and redirect setup are one-time; see
 `specs/002-custom-domain-icon/contracts/dns-hosting-contract.md` (and
 `specs/001-workout-randomizer/contracts/deployment-contract.md` for the original bucket).
+
+## Automatic deploys (GitHub Actions)
+
+`.github/workflows/deploy.yml` runs on every push to `main` (and on manual
+`workflow_dispatch`). It runs `npm test` first, then assumes an AWS role via
+GitHub's OIDC provider — no long-lived access keys — and runs the same
+`deploy/deploy.sh` script.
+
+One-time AWS + GitHub setup:
+
+1. **Add GitHub as an OIDC identity provider** in the AWS account (once per
+   account):
+
+   ```bash
+   aws iam create-open-id-connect-provider \
+     --url https://token.actions.githubusercontent.com \
+     --client-id-list sts.amazonaws.com
+   ```
+
+2. **Create the deploy role** trusting only this repo's `main` branch. Fill in
+   your account ID, then create the role and attach the S3 policy:
+
+   ```bash
+   ACCOUNT_ID=123456789012
+   BUCKET=undo-pal.rkocherl.net
+
+   sed "s/ACCOUNT_ID/${ACCOUNT_ID}/g" deploy/github-oidc-trust-policy.json > /tmp/trust.json
+   aws iam create-role --role-name undo-pal-gha-deploy \
+     --assume-role-policy-document file:///tmp/trust.json
+
+   sed "s/BUCKET_NAME/${BUCKET}/g" deploy/github-deploy-policy.json > /tmp/deploy-policy.json
+   aws iam put-role-policy --role-name undo-pal-gha-deploy \
+     --policy-name undo-pal-s3-deploy --policy-document file:///tmp/deploy-policy.json
+   ```
+
+3. **Add the role ARN as a repository secret** named `AWS_ROLE_ARN`
+   (Settings → Secrets and variables → Actions), e.g.
+   `arn:aws:iam::123456789012:role/undo-pal-gha-deploy`.
+
+The workflow targets the `production` GitHub environment, so you can also add a
+required reviewer there if you ever want deploys gated on approval.
