@@ -114,6 +114,7 @@ Goblet hold squat side step
 Goblet squat
 Good morning
 Hip hinge/deadlift 3lbs
+Hollow hold with legs in/out
 Jumping jack
 Kettlebell swing
 Knee to elbow crunch
