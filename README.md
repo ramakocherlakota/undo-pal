@@ -157,7 +157,13 @@ token's claims. The workflow has a step that runs only on that failure and
 prints the actual `sub`/`aud`/`repository`/`ref`/`environment` claims (never the
 token) — copy the printed `sub` into the trust policy's `StringLike` condition.
 
-Repositories created after 2026-07-15 may emit an immutable subject claim that
-embeds numeric org and repo IDs
-(`repo:owner@<ORG_ID>/repo@<REPO_ID>:environment:production`). The shipped trust
-policy lists patterns for both the plain and immutable forms, so either matches.
+This repository emits the **immutable** subject claim (repos created after
+2026-07-15 embed numeric org and repo IDs), observed as:
+
+```
+repo:ramakocherlakota@9009159/undo-pal@1307043784:environment:production
+```
+
+The shipped trust policy pins that exact string, and also the plain
+`repo:ramakocherlakota/undo-pal:environment:production` form in case the
+repository is ever switched off the immutable format.

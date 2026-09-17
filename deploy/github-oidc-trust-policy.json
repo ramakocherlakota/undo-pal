@@ -10,12 +10,10 @@
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
-        },
-        "StringLike": {
+          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
           "token.actions.githubusercontent.com:sub": [
-            "repo:ramakocherlakota/undo-pal:environment:production",
-            "repo:ramakocherlakota@*/undo-pal@*:environment:production"
+            "repo:ramakocherlakota@9009159/undo-pal@1307043784:environment:production",
+            "repo:ramakocherlakota/undo-pal:environment:production"
           ]
         }
       }
