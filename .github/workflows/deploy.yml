@@ -22,10 +22,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
       - name: Run unit tests
         run: npm test
 
@@ -36,10 +36,20 @@ jobs:
       name: production
       url: http://undo-pal.rkocherl.net
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+
+      - name: Check the AWS_ROLE_ARN secret is set
+        env:
+          AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+        run: |
+          if [[ -z "${AWS_ROLE_ARN}" ]]; then
+            echo "::error::The AWS_ROLE_ARN repository secret is not set." \
+                 "See the 'Automatic deploys' section of README.md for the one-time AWS + GitHub setup."
+            exit 1
+          fi
 
       - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           role-session-name: undo-pal-deploy-${{ github.run_id }}
