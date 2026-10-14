@@ -124,7 +124,6 @@ Lateral lunge with reach to foot
 Lateral step out lunges
 Lateral tap down off stair
 Laying curl up/roll up
-Leg raise
 Leg lifts over KB
 Leg up core reach
 Lunge pulse
@@ -191,6 +190,7 @@ Doorknob pulls
 Leg slide to side and bend forward
 Single leg RDL
 Angled doorknob pulls
+Leg raise
 
 # Cardio
 Bicycle

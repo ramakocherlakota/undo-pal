@@ -142,7 +142,6 @@ export const CATEGORIES = [
       "Lateral step out lunges",
       "Lateral tap down off stair",
       "Laying curl up/roll up",
-      "Leg raise",
       "Leg lifts over KB",
       "Leg up core reach",
       "Lunge pulse",
@@ -213,6 +212,7 @@ export const CATEGORIES = [
       "Leg slide to side and bend forward",
       "Single leg RDL",
       "Angled doorknob pulls",
+      "Leg raise",
     ],
   },
   {
