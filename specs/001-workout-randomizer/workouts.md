@@ -163,7 +163,6 @@ Squat
 Squat to side step
 Standing russian twist
 Standing weight hold in arm
-Straight leg raise
 Stuck turtle knees up
 Sumo wide stance deadlift
 Superman
@@ -191,6 +190,7 @@ Leg slide to side and bend forward
 Single leg RDL
 Angled doorknob pulls
 Leg raise
+Straight leg raise
 
 # Cardio
 Bicycle

@@ -181,7 +181,6 @@ export const CATEGORIES = [
       "Squat to side step",
       "Standing russian twist",
       "Standing weight hold in arm",
-      "Straight leg raise",
       "Stuck turtle knees up",
       "Sumo wide stance deadlift",
       "Superman",
@@ -213,6 +212,7 @@ export const CATEGORIES = [
       "Single leg RDL",
       "Angled doorknob pulls",
       "Leg raise",
+      "Straight leg raise",
     ],
   },
   {
