@@ -190,7 +190,6 @@ Leg slide to side and bend forward
 Single leg RDL
 Angled doorknob pulls
 Leg raise
-Straight leg raise
 
 # Cardio
 Bicycle

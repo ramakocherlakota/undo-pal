@@ -212,7 +212,6 @@ export const CATEGORIES = [
       "Single leg RDL",
       "Angled doorknob pulls",
       "Leg raise",
-      "Straight leg raise",
     ],
   },
   {
