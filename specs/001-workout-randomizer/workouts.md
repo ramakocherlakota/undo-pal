@@ -3,6 +3,7 @@
 1/2 kneeling chop/rotation
 90/90 overhead dumbbell pullover
 Alt row
+Alt shoulder press
 Alternating snatch
 Arm reach to ceiling from back
 Arnold Press
@@ -84,6 +85,7 @@ Toe walking farmer's carry
 Wall sit
 
 # Core
+Ab hovers
 Alternating leg lift
 Arm to ceiling crunch
 Ball slam overhead
@@ -151,7 +153,7 @@ Scissor kick
 Side Bend
 Side crunch
 Side plank
-Single leg bridge 
+Single leg bridge
 Side to side lunges
 Side to side skater jumps
 Single leg sit to stand from 18 inch
