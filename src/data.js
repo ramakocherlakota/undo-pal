@@ -103,6 +103,7 @@ export const CATEGORIES = [
     exercises: [
       "Ab hovers",
       "Alternating leg lift",
+      "Arm to ceiling crunch",
       "Ball slam overhead",
       "Band external rotation both shoulders elbow at 90deg",
       "Band row to rotation to overhead press",
